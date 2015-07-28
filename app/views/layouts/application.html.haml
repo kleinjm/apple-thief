@@ -6,6 +6,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = render "layouts/header"
-    = yield
+    #wrap
+      = render "layouts/header"
+      %div{ class: params[:action] == "index" ? "" : "container" }= yield
     = render "layouts/footer"

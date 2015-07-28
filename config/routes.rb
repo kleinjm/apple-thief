@@ -1,4 +1,13 @@
 AppleThief::Application.routes.draw do
+
+  namespace :public do
+    get :bag_selection
+    get :item_selection
+    get :out
+    get :check_out
+    get :how_it_works
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

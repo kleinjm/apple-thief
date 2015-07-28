@@ -1,0 +1,49 @@
+.text-center
+  .row
+    .col-md-2.col-md-offset-5
+      = image_tag "apple-bag.jpg", class: "img img-responsive"
+  %h3 Bag Selection
+  %p Click on the type of bag that you would like to use.
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-heading Duffle Bag
+      .panel-body
+        = link_to public_item_selection_path(bag: "duffle") do
+          = image_tag "duffle.png", class: "img img-responsive"
+        %p The duffle bag is the biggest bag that you can use!
+        %p 
+          Weight capacity: 
+          %span.badge 150lbs
+        .text-center
+          = link_to public_item_selection_path(bag: "duffle"), class: "btn btn-primary" do
+            .glyphicon.glyphicon-ok
+            Select
+  .col-md-4  
+    .panel.panel-default
+      .panel-heading Backpack
+      .panel-body
+        = link_to public_item_selection_path(bag: "backpack") do
+          = image_tag "backpack.png", class: "img img-responsive"
+        %p The backpack is the one-size-fits-all of stealing.
+        %p 
+          Weight capacity: 
+          %span.badge 60lbs
+        .text-center
+          = link_to public_item_selection_path(bag: "backpack"), class: "btn btn-primary" do
+            .glyphicon.glyphicon-ok
+            Select
+  .col-md-4  
+    .panel.panel-default
+      .panel-heading Purse
+      .panel-body
+        = link_to public_item_selection_path(bag: "purse") do
+          = image_tag "purse.jpg", class: "img img-responsive"
+        %p Best choice for the casual day out stealing things.
+        %p 
+          Weight capacity: 
+          %span.badge 25lbs
+        .text-center
+          = link_to public_item_selection_path(bag: "purse"), class: "btn btn-primary" do
+            .glyphicon.glyphicon-ok
+            Select
