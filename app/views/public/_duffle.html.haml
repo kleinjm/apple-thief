@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading Duffle Bag
+  .panel-body
+    = link_to public_item_selection_path(bag: "duffle") do
+      = image_tag "duffle.png", class: "img img-responsive"
+    %p The duffle bag is the biggest bag that you can use!
+    %p 
+      Weight capacity: 
+      %span.badge 150lbs
+    .text-center
+      = link_to public_item_selection_path(bag: "duffle"), class: "btn btn-primary" do
+        .glyphicon.glyphicon-ok
+        Select

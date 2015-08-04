@@ -1,8 +1,12 @@
 AppleThief::Application.routes.draw do
 
+  resources :items
+
+
+  resources :bags
+
+
   namespace :public do
-    get :bag_selection
-    get :item_selection
     get :out
     get :check_out
     get :how_it_works

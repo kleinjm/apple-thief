@@ -11,6 +11,7 @@ gem 'jquery-rails', '3.1.1'
 
 # Database
 gem 'pg', '0.17.1'
+gem 'simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.

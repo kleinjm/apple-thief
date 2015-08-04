@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @bag.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @bag.description %>
+</p>
+
+<p>
+  <b>Capacity:</b>
+  <%= @bag.capacity %>
+</p>
+
+<p>
+  <b>Photo url:</b>
+  <%= @bag.photo_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_bag_path(@bag) %> |
+<%= link_to 'Back', bags_path %>

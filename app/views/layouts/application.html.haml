@@ -4,9 +4,10 @@
     %title Apple Thief
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
+    %link{:rel => "icon", :type => "image/ico", :href => "/favicon2.ico"}
     = csrf_meta_tags
   %body
     #wrap
       = render "layouts/header"
-      %div{ class: params[:action] == "index" ? "" : "container" }= yield
+      %div{ class: params[:action] == "index" && params[:controller] == "public" ? "" : "container" }= yield
     = render "layouts/footer"

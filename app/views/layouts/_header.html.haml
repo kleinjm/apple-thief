@@ -11,10 +11,10 @@
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{ class: params[:action] == "bag_selection" ? "active" : "" }
-          = link_to "Bag", public_bag_selection_path
-        %li{ class: params[:action] == "item_selection" ? "active" : "" }
-          %a{href: "#"} Items
+        %li{ class: params[:controller] == "bags" ? "active" : "" }
+          = link_to "Bag", bags_path
+        %li{ class: params[:controller] == "items" ? "active" : "" }
+          = link_to "Items", items_path
         %li{ class: params[:action] == "how_it_works" ? "active" : "" }
           = link_to "How it works", public_how_it_works_path
       %ul.nav.navbar-nav.navbar-right

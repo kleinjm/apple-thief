@@ -1,0 +1,14 @@
+= simple_form_for @bag do |f|
+  - if @bag.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@bag.errors.count, "error")
+        prohibited this bag from being saved:
+      %ul
+        - @bag.errors.full_messages.each do |msg|
+          %li= msg
+  = f.input :name
+  = f.input :description, :as => :text, :input_html => { 'rows' => 5 }
+  = f.input :capacity, placeholer: "60"
+  = f.input :photo_url, placeholder: "http://images.server.com/duffle.jpg"
+  = f.submit "Save", class: "btn btn-primary"

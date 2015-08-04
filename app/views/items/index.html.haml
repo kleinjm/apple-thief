@@ -1,0 +1,22 @@
+.text-center
+  .row
+    .col-md-2.col-md-offset-5
+      = image_tag "apple-logo.png", class: "img img-responsive"
+  %br
+  %p You've selected the following bag
+  .row
+    .col-md-2.col-md-offset-5
+      - case params[:bag]
+      - when "duffle"
+        %h5 Duffle Bag
+        = image_tag "duffle.png", class: "img img-responsive"
+        %p 
+          Capacity: 
+          %span.badge 150lbs
+  .text-center
+    %span.glyphicon.glyphicon-chevron-down
+  %hr
+  %h3 Item Selection
+  %p Assign a priority to any items that you would like to be more highly considered.
+  %p Specify any quantities of items that you want to make sure that you get them.
+  = link_to "Check out", public_check_out_path, class: "btn btn-primary"

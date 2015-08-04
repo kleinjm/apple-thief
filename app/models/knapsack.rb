@@ -1,40 +1,44 @@
 class Knapsack
-  KnapsackItem = Struct.new(:name, :weight, :value)
-   
+  KnapsackItem = Struct.new(:name, :weight, :value)  # ad hoc item struct. TODO: Make an active model for this
+  
+  # return an array of an array of included item's names, the total weight used, and the total value of all items
   def dynamic_programming_knapsack(items, max_weight)
-    num_items = items.size
-    cost_matrix = Array.new(num_items){Array.new(max_weight+1, 0)}
+    num_items = items.size                                          # an array of input items
+    cost_matrix = Array.new(num_items){Array.new(max_weight+1, 0)}  # multi-demensional array of number of tiems x the max weight. All cells set to 0
    
-    num_items.times do |i|
-      (max_weight + 1).times do |j|
-        if(items[i].weight > j)
-          cost_matrix[i][j] = cost_matrix[i-1][j]
+    num_items.times do |i|                          # for each time
+      (max_weight + 1).times do |j|                 # for each weight
+        if(items[i].weight > j)                     # if the knapsack can't fit this item yet
+          cost_matrix[i][j] = cost_matrix[i-1][j]   # set its value to the value cell of the item before it (on the same weight column)
         else
-          cost_matrix[i][j] = [cost_matrix[i-1][j], items[i].value + cost_matrix[i-1][j-items[i].weight]].max
+          cost_matrix[i][j] = [cost_matrix[i-1][j], items[i].value + cost_matrix[i-1][j-items[i].weight]].max   # if it can fit, take the maximum of either the last item's value cell or this item's value plus the value of the item's cell in the cell of the remaining weight to be filled
         end
       end
     end
-    used_items = get_used_items(items, cost_matrix)
+    used_items = get_used_items(items, cost_matrix) 
     [get_list_of_used_items_names(items, used_items),                     # used items names
      items.zip(used_items).map{|item,used| item.weight*used}.inject(:+),  # total weight
      cost_matrix.last.last]                                               # total value
   end
-   
+  
+  # return an array of equal structure to the items array indicating the items to be used
+  # ie. [<Item1>, <Item2>, <Item3>] -> [1, 0, 1]
   def get_used_items(items, cost_matrix)
-    i = cost_matrix.size - 1
-    currentCost = cost_matrix[0].size - 1
-    marked = cost_matrix.map{0}
+    i = cost_matrix.size - 1                # set indexer i to the maximum weight
+    currentCost = cost_matrix[0].size - 1   # set indexer to last item index
+    marked = cost_matrix.map{0}             # make an array of length of number of weights and set all values to 0 
    
-    while(i >= 0 && currentCost >= 0)
-      if(i == 0 && cost_matrix[i][currentCost] > 0 ) || (cost_matrix[i][currentCost] != cost_matrix[i-1][currentCost])
-        marked[i] = 1
-        currentCost -= items[i].weight
+    while(i >= 0 && currentCost >= 0)       # while the counters for weights and items are >= 0
+      if(i == 0 && cost_matrix[i][currentCost] > 0 ) || (cost_matrix[i][currentCost] != cost_matrix[i-1][currentCost]) # if there is remaining value for this item at weight 0 OR the the item before this item doesn't have the same value
+        marked[i] = 1                       # place a marker at the index of this item
+        currentCost -= items[i].weight      # decrease the remaining free weight by the this item's weight
       end
-      i -= 1
+      i -= 1                                # decrement i
     end
     marked
   end
-   
+  
+  # match the used items array against the itmes array to return the names of the items used
   def get_list_of_used_items_names(items, used_items)
     items.zip(used_items).map{|item,used| item.name if used>0}.compact.join(', ')
   end

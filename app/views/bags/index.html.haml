@@ -1,0 +1,32 @@
+%hr.invisible
+.text-center
+  .row
+    .col-md-2.col-md-offset-5
+      = image_tag "apple-bag.jpg", class: "img img-responsive"
+  %h3 Bag Selection
+  %p Click on the type of bag that you would like to use.
+  - if @bag_arrays.blank?
+    %em There are currently no bags
+  - else
+    - @bag_arrays.each do |bag_array|
+      .row
+        - bag_array.each do |bag|
+          .col-md-4
+            .panel.panel-default
+              .panel-heading= bag.name
+              .panel-body
+                = link_to items_path(bag: bag) do
+                  = image_tag bag.photo_url, class: "img img-responsive"
+                %p= bag.description
+                %p 
+                  Weight capacity: 
+                  %span.badge= bag.capacity
+                .text-center
+                  = link_to items_path(bag: bag), class: "btn btn-primary" do
+                    .glyphicon.glyphicon-ok
+                    Select
+  %hr.invisible
+  = link_to new_bag_path, class: "btn btn-default" do
+    .glyphicon.glyphicon-plus
+    Add your own bag
+  %hr.invisible
