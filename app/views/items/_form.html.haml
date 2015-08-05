@@ -1,0 +1,20 @@
+= simple_form_for @item do |f|
+  = hidden_field_tag :back, params[:action]
+  - if @item.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@item.errors.count, "error")
+        prohibited this item from being saved:
+      %ul
+        - @item.errors.full_messages.each do |msg|
+          %li= msg
+  = f.input :name
+  = f.input :description, :as => :text, :input_html => { 'rows' => 5 }
+  = f.input :weight, placeholder: "60", input_html: { class: "half-width" }
+  = f.input :value, placeholder: "60", input_html: { class: "half-width" }
+  = f.input :photo_url, placeholder: "http://images.server.com/iphone.jpg"
+  %hr.invisible
+  .row
+    .col-md-4.col-md-offset-4
+      = link_to 'Back', items_path, class: "btn btn-danger float-left"
+      = f.submit "Save", class: "btn btn-primary float-right"

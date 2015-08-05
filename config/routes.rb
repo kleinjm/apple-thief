@@ -1,10 +1,6 @@
 AppleThief::Application.routes.draw do
-
-  resources :items
-
-
-  resources :bags
-
+  resources :items, except: [:show]
+  resources :bags, except: [:show]
 
   namespace :public do
     get :out

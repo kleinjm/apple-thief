@@ -19,3 +19,16 @@ html, body{
   background-color: #000;
   color: #FFF;
 }
+
+// message popup
+#alert-message{
+  top: 30%;
+  opacity: .98;
+  position: fixed;
+  width: 100%;
+  display: none;
+  z-index: 100; // keep on top
+  .alert-content-container{
+    border-radius: 10px;
+  }
+}

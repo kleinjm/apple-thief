@@ -10,17 +10,6 @@ class BagsController < ApplicationController
     end
   end
 
-  # GET /bags/1
-  # GET /bags/1.json
-  def show
-    @bag = Bag.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @bag }
-    end
-  end
-
   # GET /bags/new
   # GET /bags/new.json
   def new
@@ -44,7 +33,7 @@ class BagsController < ApplicationController
 
     respond_to do |format|
       if @bag.save
-        format.html { redirect_to @bag, notice: 'Bag was successfully created.' }
+        format.html { redirect_to bags_path, notice: 'Bag was successfully created.' }
         format.json { render json: @bag, status: :created, location: @bag }
       else
         format.html { render action: "new" }
@@ -60,7 +49,7 @@ class BagsController < ApplicationController
 
     respond_to do |format|
       if @bag.update_attributes(params[:bag])
-        format.html { redirect_to @bag, notice: 'Bag was successfully updated.' }
+        format.html { redirect_to bags_path, notice: 'Bag was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

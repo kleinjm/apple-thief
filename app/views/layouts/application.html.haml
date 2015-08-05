@@ -9,5 +9,15 @@
   %body
     #wrap
       = render "layouts/header"
+      #alert-message
+        .container
+          .row
+            .col-md-6.col-md-offset-3.alert-content-container.alert-success
+              %h4.text-center
+                %span.notice= notice
+                %span.alert= alert
+                %button.close.float-right
+                  %span{ :'aria-hidden' => "true" } &times;
+                  %span.sr-only Close
       %div{ class: params[:action] == "index" && params[:controller] == "public" ? "" : "container" }= yield
     = render "layouts/footer"

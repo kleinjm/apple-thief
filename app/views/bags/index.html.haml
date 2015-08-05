@@ -13,7 +13,9 @@
         - bag_array.each do |bag|
           .col-md-4
             .panel.panel-default
-              .panel-heading= bag.name
+              .panel-heading
+                = bag.name
+                .float-right= link_to "Edit", edit_bag_path(bag)
               .panel-body
                 = link_to items_path(bag: bag) do
                   = image_tag bag.photo_url, class: "img img-responsive"

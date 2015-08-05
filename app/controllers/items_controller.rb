@@ -2,7 +2,14 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    if !params[:bag].blank?
+      @bag = Bag.find(params[:bag])
+      session[:bag] = params[:bag]
+    elsif !session[:bag].blank?
+      @bag = Bag.find(session[:bag])
+    end
+
+    @item_arrays = Item.all.each_slice(4).to_a # number per line
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +51,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.html { redirect_to items_path, notice: 'Item was successfully created.' }
         format.json { render json: @item, status: :created, location: @item }
       else
         format.html { render action: "new" }
@@ -60,11 +67,14 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to items_path, notice: 'Item was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        if !params[:back].blank? && params[:back] == "index"
+          format.html { redirect_to items_path }
+        else
+          format.html { render action: "edit" }
+        end
       end
     end
   end
