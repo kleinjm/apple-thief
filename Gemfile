@@ -12,6 +12,7 @@ gem 'jquery-rails', '3.1.1'
 # Database
 gem 'pg', '0.17.1'
 gem 'simple_form'
+gem 'seed_dump', '0.5.3'
 
 # Gems used only for assets and not required
 # in production environments by default.
