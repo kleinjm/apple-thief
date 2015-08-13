@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
     elsif !session[:bag].blank?
       @bag = Bag.find(session[:bag])
     end
+    if !params[:errors].blank?
+      @errors = params[:errors].map {|array2| "#{array2.first} #{array2.last.last}".humanize}
+    end
 
     @item_arrays = Item.all.each_slice(4).to_a # number per line
 
@@ -70,8 +73,9 @@ class ItemsController < ApplicationController
         format.html { redirect_to items_path, notice: 'Item was successfully updated.' }
         format.json { head :no_content }
       else
+        @errors = @item.errors.messages
         if !params[:back].blank? && params[:back] == "index"
-          format.html { redirect_to items_path }
+          format.html { redirect_to items_path(errors: @errors) }
         else
           format.html { render action: "edit" }
         end

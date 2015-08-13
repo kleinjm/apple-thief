@@ -1,4 +1,11 @@
 .text-center
+  - if !@errors.blank?
+    %br
+    .row
+      .col-md-8.col-md-offset-2.alert.alert-danger
+        %ul.list-unstyled
+          - @errors.each do |msg|
+            %li= msg
   .row
     .col-md-2.col-md-offset-5
       = image_tag "apple-logo.png", class: "img img-responsive"
@@ -29,19 +36,17 @@
     - if @item_arrays.blank?
       %em There are currently no items
     - else
+      - if !@errors.blank?
+        .row
+          .col-md-8.col-md-offset-2.alert.alert-danger
+            %ul.list-unstyled
+              - @errors.each do |msg|
+                %li= msg
       - @item_arrays.each do |item_array|
         .row
           - item_array.each do |item|
             = simple_form_for item do |f|
               = hidden_field_tag :back, "index"
-              - if item.errors.any?
-                #error_explanation
-                  %h2
-                    = pluralize(@item.errors.count, "error")
-                    prohibited this item from being saved:
-                  %ul
-                    - item.errors.full_messages.each do |msg|
-                      %li= msg
               .col-md-3
                 .panel.panel-default
                   .panel-heading
@@ -53,10 +58,11 @@
                     %p 
                       Weight:
                       %span.badge= item.weight
+                    %p= "Price #{number_to_currency(item.value)}"
                     .text-center
                       = f.input :priority
                       = f.input :quantity
-                    = f.submit "Update"
+                    = f.submit "Update", class: "btn btn-default"
     %hr.invisible
     = link_to new_item_path, class: "btn btn-default" do
       .glyphicon.glyphicon-plus

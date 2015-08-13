@@ -1,15 +1,19 @@
 .text-center
   %h3 Great bounty!
+  %p= "You used #{@weight} out of the #{@bag.capacity} capacity of the #{@bag.name} bag and acheived a total value of #{@value}"
   %table.table
     %thead
       %tr
         %th Item
+        %th Weight
         %th Value
         %th Quantity
         %th Total Value
     %tbody
-      %tr
-        %td iPhone 6
-        %td $600
-        %td 5
-        %td $3000
+      - @items.each do |item|
+        %tr
+          %td= item.name
+          %td= item.weight
+          %td= number_to_currency(item.value)
+          %td ??
+          %td ??

@@ -7,9 +7,8 @@ class PublicController < ApplicationController
   end
 
   def check_out
-    items = params[:ids]
-    bag = session[:bag]
-    
-    
+    @bag = Bag.find(session[:bag])
+
+    @items, @weight, @value = Item.knapsack_problem(Item.all, @bag.capacity)
   end
 end
