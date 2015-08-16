@@ -6,6 +6,7 @@ AppleThief::Application.routes.draw do
     get :out
     get :check_out
     get :how_it_works
+    get :basic_knapsack
   end
 
   # The priority is based upon order of creation:

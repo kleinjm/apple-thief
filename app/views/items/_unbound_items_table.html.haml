@@ -1,0 +1,8 @@
+- @items.each do |item|
+  %tr
+    %td= item.first.name
+    %td= item.first.weight
+    %td= item.first.priority
+    %td= number_to_currency(item.first.value)
+    %td= item.last
+    %td= number_to_currency(item.first.value * item.last)

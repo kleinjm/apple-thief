@@ -9,6 +9,13 @@ class PublicController < ApplicationController
   def check_out
     @bag = Bag.find(session[:bag])
 
-    @items, @weight, @value = Item.knapsack_problem(Item.all, @bag.capacity)
+    @value, @items, @weight = Item.knapsack_unbound_problem(@bag.capacity)
+  end
+
+  def basic_knapsack
+    @bag = Bag.find(session[:bag])
+
+    @items, @weight, @value = Item.knapsack_problem(@bag.capacity)
+    render "public/check_out"
   end
 end

@@ -7,17 +7,23 @@
     %link{:rel => "icon", :type => "image/ico", :href => "/favicon2.ico"}
     = csrf_meta_tags
   %body
+    #overlay.opaque
     #wrap
       = render "layouts/header"
-      #alert-message
+      #alert-message.text-center
         .container
           .row
-            .col-md-6.col-md-offset-3.alert-content-container.alert-success
-              %h4.text-center
-                %span.notice= notice
-                %span.alert= alert
-                %button.close.float-right
-                  %span{ :'aria-hidden' => "true" } &times;
-                  %span.sr-only Close
+            .col-md-6.col-md-offset-3
+              .panel.panel-default
+                .panel-heading
+                  %button.close.float-right
+                    %span{ :'aria-hidden' => "true" } &times;
+                    %span.sr-only Close
+                  .panel-title Alert
+                .panel-body
+                  %span.notice= notice
+                  %span.alert= alert
+                  %hr.invisible
+                  %button.btn.btn-default Close
       %div{ class: params[:action] == "index" && params[:controller] == "public" ? "" : "container" }= yield
     = render "layouts/footer"

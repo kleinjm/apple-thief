@@ -1,3 +1,4 @@
+%hr.invisible
 .text-center
   - if !@errors.blank?
     %br
@@ -6,10 +7,6 @@
         %ul.list-unstyled
           - @errors.each do |msg|
             %li= msg
-  .row
-    .col-md-2.col-md-offset-5
-      = image_tag "apple-logo.png", class: "img img-responsive"
-  %br
   - if @bag.blank?
     %p Whoops! Looks like you havent selected a bag yet
     = link_to "Click here to pick a bag", bags_path, class: "btn btn-primary"
@@ -30,12 +27,14 @@
     %h3 Item Selection
     .row
       .col-md-6.col-md-offset-3
-        .alert.alert-info
-          %p Assign a priority to any items that you would like to be more highly considered.
-          %p Specify any quantities of items that you want to make sure that you get.
+        %p Assign a priority to any items that you would like to be more highly considered.
+        %p.bold Priorities must be unique. Do not assign the same priority to multiple items.
     - if @item_arrays.blank?
       %em There are currently no items
     - else
+      = link_to "Reset Priorites", items_path(reset: true)
+      %br
+      %br
       - if !@errors.blank?
         .row
           .col-md-8.col-md-offset-2.alert.alert-danger
@@ -60,17 +59,17 @@
                       %span.badge= item.weight
                     %p= "Price #{number_to_currency(item.value)}"
                     .text-center
-                      = f.input :priority
-                      = f.input :quantity
+                      = f.input :priority, collection: 1..10, input_html: { class: "priority-select" }
                     = f.submit "Update", class: "btn btn-default"
     %hr.invisible
     = link_to new_item_path, class: "btn btn-default" do
       .glyphicon.glyphicon-plus
       Add your own item
     %hr.invisible
-    = link_to public_check_out_path, class: "btn btn-primary" do
+    = link_to public_check_out_path, class: "btn btn-primary btn-lg" do
       .glyphicon.glyphicon-check
       Check out
+    %br
+    %br
+    = link_to "(Click here for the basic knapsack algorithm)", public_basic_knapsack_path
     %hr.invisible
-
-    

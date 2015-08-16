@@ -1,19 +1,35 @@
-.text-center
-  %h3 Great bounty!
-  %p= "You used #{@weight} out of the #{@bag.capacity} capacity of the #{@bag.name} bag and acheived a total value of #{@value}"
+.row
+  .col-md-2.col-md-offset-5
+    = image_tag "apple-logo.png", class: "img img-responsive"
+%br
+- if @items.blank?
+  .text-center
+    %h3 You couldn't steal anything.
+    %p Try using a bigger bag or selecting smaller items
+    = link_to "Try again", bags_path(reset: true), class: "btn btn-primary"
+- else
+  .text-center
+    %h3 Great bounty!
+    %p= "You used #{@weight} out of the #{@bag.capacity} capacity of the #{@bag.name} and acheived a total value of #{number_to_currency(@value)}"
   %table.table
     %thead
       %tr
         %th Item
         %th Weight
+        %th Priority
         %th Value
         %th Quantity
         %th Total Value
     %tbody
-      - @items.each do |item|
-        %tr
-          %td= item.name
-          %td= item.weight
-          %td= number_to_currency(item.value)
-          %td ??
-          %td ??
+      - if params[:action] == "check_out"
+        = render "items/unbound_items_table"
+      - if params[:action] == "basic_knapsack"
+        = render "items/basic_knapsack_table"
+  .text-center= link_to "Reset Planning", bags_path(reset: true), class: "btn btn-primary"
+  %br
+  %br
+  .text-center
+    - if params[:action] == "check_out"
+      = link_to "See results for Basic Algorithm", public_basic_knapsack_path
+    - else
+      = link_to "See results for Unbound Algorithm", public_check_out_path

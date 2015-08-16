@@ -29,6 +29,8 @@ end
 group :development do
   gem "better_errors", "1.1.0"
   gem "binding_of_caller"
+  gem 'pry'
+  gem 'pry-nav' 
 end
 
 group :production do

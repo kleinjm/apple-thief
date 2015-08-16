@@ -3,6 +3,7 @@ class BagsController < ApplicationController
   # GET /bags.json
   def index
     @bag_arrays = Bag.all.each_slice(3).to_a
+    Item.clear_all_quantities_and_priorities if !params[:reset].blank?
 
     respond_to do |format|
       format.html # index.html.erb

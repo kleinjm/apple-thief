@@ -12,6 +12,7 @@ class ItemsController < ApplicationController
       @errors = params[:errors].map {|array2| "#{array2.first} #{array2.last.last}".humanize}
     end
 
+    Item.clear_all_quantities_and_priorities if !params[:reset].blank?
     @item_arrays = Item.all.each_slice(4).to_a # number per line
 
     respond_to do |format|
