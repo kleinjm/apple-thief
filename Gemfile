@@ -13,6 +13,7 @@ gem 'jquery-rails', '3.1.1'
 gem 'pg', '0.17.1'
 gem 'simple_form'
 gem 'seed_dump', '0.5.3'
+gem 'faker', '1.4.3'    # create fake data. Used for testing but needed outside that group so that we can use it in the db seed file
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,6 +32,14 @@ group :development do
   gem "binding_of_caller"
   gem 'pry'
   gem 'pry-nav' 
+
+  # testing
+  gem 'guard', '~> 2.12.6' # allows tests to be automatically run when files are modified
+  gem 'guard-rspec', '~> 4.5.2'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 4.5.0'  # uses factories insead of fixtures in tests
+  gem 'capybara', '2.4.4' # simulating how a real user would interact with your app. Acts as outside user
+  gem "launchy"
 end
 
 group :production do
